@@ -1,0 +1,32 @@
+$font-family: "Nunito", sans-serif;
+.app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  .events {
+    position: relative;
+    padding: 2em;
+    .logo {
+      position: relative;
+      font-family: $font-family;
+      color: #213f7d;
+      font-weight: 900;
+      font-size: 20px;
+    }
+    .ev-list {
+      position: relative;
+      top: 2em;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      .ev-item {
+        position: relative;
+        width: 29%;
+        border: 1px dashed #ccc;
+        padding: 1em;
+        margin-right: 1em;
+        margin-bottom: 1em;
+      }
+    }
+  }
+}
