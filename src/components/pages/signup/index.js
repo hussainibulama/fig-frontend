@@ -97,7 +97,7 @@ const Signup = () => {
                 />
                 <Input
                   clas="texter"
-                  type="text"
+                  type="password"
                   name="password"
                   holder="Password"
                   onchange={(e) =>
