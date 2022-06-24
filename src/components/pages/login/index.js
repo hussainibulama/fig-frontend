@@ -103,7 +103,8 @@ const Login = () => {
               </div>
               <div>
                 <p className="confis">
-                  Add new event <NavLink to="/addevent">New event</NavLink>
+                  Admin? <NavLink to="/addevent">Add new event</NavLink>{" "}
+                  <sup>*Just a sample.. no authentication*</sup>
                 </p>
               </div>
             </form>

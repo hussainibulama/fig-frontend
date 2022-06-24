@@ -1,12 +1,14 @@
 const Select = ({ clas, defText, onchange, options }) => {
   return (
     <>
-      <select className={clas} onChange={onchange}>
-        <option className="default" hidden selected disabled>
+      <select className={clas} defaultValue={"DEFAULT"} onChange={onchange}>
+        <option value="DEFAULT" className="default" hidden disabled>
           {defText}
         </option>
         {options.map((text, key) => (
-          <option key={key}>{text}</option>
+          <option value={text} key={key}>
+            {text}
+          </option>
         ))}
       </select>
     </>

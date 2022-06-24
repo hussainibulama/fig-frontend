@@ -71,6 +71,16 @@ $font-family: "Nunito", sans-serif;
             font-size: 16px;
           }
         }
+        .all {
+          position: relative;
+          display: flex;
+          flex-direction: row;
+          div {
+            position: relative;
+            width: 19%;
+            margin-right: 4px;
+          }
+        }
         .forms {
           position: relative;
           .texter {
@@ -84,7 +94,6 @@ $font-family: "Nunito", sans-serif;
             color: #545f7d;
             font-family: $font-family;
             font-size: 14px;
-            height: 100%;
             line-height: 19px;
             outline: none !important;
             width: 100%;
@@ -95,13 +104,12 @@ $font-family: "Nunito", sans-serif;
             background: #fff;
             border: 2px solid rgba(84, 95, 125, 0.15);
             border-radius: 3px;
-            height: 40px;
+            height: 60px;
             padding: 0.5em;
             box-sizing: border-box;
             color: #545f7d;
             font-family: $font-family;
             font-size: 14px;
-            height: 100%;
             line-height: 19px;
             outline: none !important;
             width: 100%;
@@ -118,7 +126,6 @@ $font-family: "Nunito", sans-serif;
             color: #545f7d;
             font-family: $font-family;
             font-size: 14px;
-            height: 100%;
             line-height: 19px;
             outline: none !important;
             width: 100%;

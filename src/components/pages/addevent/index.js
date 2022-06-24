@@ -15,6 +15,14 @@ const AddEvent = () => {
     isVirtual: "",
     address: "Virtual ",
     time: "",
+    file: "",
+  });
+  const [time, setTime] = useState({
+    stime: "",
+    etime: "",
+    si: "",
+    ei: "",
+    tz: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -26,10 +34,36 @@ const AddEvent = () => {
         data.description !== "" &&
         data.category !== "" &&
         data.date !== "" &&
-        data.isVirtual !== "" &&
-        data.time !== ""
+        data.isVirtual !== ""
       ) {
-        let res = await instance.post("/event/create-event", data);
+        const formData = new FormData();
+
+        formData.append("file", data.file);
+
+        formData.append("title", data.title);
+        formData.append("description", data.description);
+        formData.append("category", data.category);
+        formData.append("date", data.date);
+        formData.append("address", data.address);
+        formData.append("isVirtual", data.isVirtual);
+        formData.append(
+          "time",
+          time.stime +
+            "" +
+            time.si +
+            "-" +
+            time.etime +
+            "" +
+            time.ei +
+            " " +
+            time.tz
+        );
+
+        let res = await instance.post("/event/create-event", formData, {
+          headers: {
+            "Content-Type": `multipart/form-data;`,
+          },
+        });
         let result = await res.data;
         if (result.status === "success") {
           setLoading(false);
@@ -72,6 +106,7 @@ const AddEvent = () => {
                 {/* {JSON.stringify(data)} */}
               </div>
               <div className="forms">
+                <span>Title:</span>
                 <Input
                   clas="texter"
                   type="text"
@@ -79,6 +114,7 @@ const AddEvent = () => {
                   holder="Title"
                   onchange={(e) => setData({ ...data, title: e.target.value })}
                 />
+                <span>Description:</span>
                 <textarea
                   name="description"
                   placeholder="Description"
@@ -86,6 +122,8 @@ const AddEvent = () => {
                     setData({ ...data, description: e.target.value })
                   }
                 />
+                <span>Category:</span>
+
                 <Select
                   onchange={(e) =>
                     setData({ ...data, category: e.target.value })
@@ -100,6 +138,8 @@ const AddEvent = () => {
                     "Machine Learning",
                   ]}
                 />
+                <span>Date:</span>
+
                 <Input
                   clas="texter"
                   type="date"
@@ -107,6 +147,7 @@ const AddEvent = () => {
                   holder="Date"
                   onchange={(e) => setData({ ...data, date: e.target.value })}
                 />
+                <span>Type:</span>
                 <Select
                   onchange={(e) =>
                     setData({
@@ -118,24 +159,87 @@ const AddEvent = () => {
                   defText="Event Type"
                   options={["Virtual", "On-Site"]}
                 />
-                {data.isVirtual === true ? (
-                  ""
-                ) : (
-                  <textarea
-                    name="location"
-                    placeholder="Location i.e Address"
+
+                <textarea
+                  name="location"
+                  placeholder={
+                    data.isVirtual === true
+                      ? "Meeting  Link"
+                      : "Location i.e Address"
+                  }
+                  onChange={(e) =>
+                    setData({ ...data, address: e.target.value })
+                  }
+                />
+
+                <div className="all">
+                  <div>
+                    {" "}
+                    <span>Start Time:</span>
+                    <Input
+                      clas="texter"
+                      type="time"
+                      name="time"
+                      holder="time"
+                      onchange={(e) =>
+                        setTime({ ...time, stime: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div>
+                    <span>Indicator:</span>
+
+                    <Select
+                      onchange={(e) => setTime({ ...time, si: e.target.value })}
+                      clas="selecter"
+                      defText="Clock"
+                      options={["AM", "PM"]}
+                    />
+                  </div>
+                  <div>
+                    <span>End Time:</span>
+
+                    <Input
+                      clas="texter"
+                      type="time"
+                      name="time"
+                      holder="time"
+                      onchange={(e) =>
+                        setTime({ ...time, etime: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div>
+                    <span>Indicator:</span>
+
+                    <Select
+                      onchange={(e) => setTime({ ...time, ei: e.target.value })}
+                      clas="selecter"
+                      defText="Clock"
+                      options={["AM", "PM"]}
+                    />
+                  </div>
+                  <div>
+                    {" "}
+                    <span>Time Zome:</span>
+                    <Input
+                      clas="texter"
+                      type="text"
+                      name="time"
+                      holder="GMT+1"
+                      onchange={(e) => setTime({ ...time, tz: e.target.value })}
+                    />
+                  </div>
+                </div>
+                <div style={{ marginBottom: "10px" }}>
+                  <span>Image:</span>
+                  <input
+                    type="file"
                     onChange={(e) =>
-                      setData({ ...data, address: e.target.value })
+                      setData({ ...data, file: e.target.files[0] })
                     }
                   />
-                )}
-                <Input
-                  clas="texter"
-                  type="time"
-                  name="time"
-                  holder="time"
-                  onchange={(e) => setData({ ...data, time: e.target.value })}
-                />
+                </div>
 
                 <Button
                   onclick={(e) => {
